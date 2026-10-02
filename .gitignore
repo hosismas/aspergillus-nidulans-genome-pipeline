@@ -1,0 +1,68 @@
+# .gitignore for the A. nidulans genome pipeline
+#
+# The rule: commit the code, the README and small summary results.
+# Everything large (reads, assemblies, databases, tool output folders)
+# stays out. It can all be regenerated from public data with the
+# commands in README.md, and GitHub rejects files over 100 MB anyway.
+
+# --- macOS and Python clutter ---
+.DS_Store
+__pycache__/
+*.pyc
+
+# --- Raw and trimmed reads ---
+*.fastq
+*.fastq.gz
+*.fq
+*.fq.gz
+00_raw_reads/
+
+# Keep the fastp report, ignore the trimmed reads
+02_trimmed/*
+!02_trimmed/fastp_report.html
+!02_trimmed/fastp_report.json
+
+# --- QC reports: keep only the MultiQC summaries ---
+01_qc_raw/*
+!01_qc_raw/multiqc_report.html
+03_qc_trimmed/*
+!03_qc_trimmed/multiqc_report.html
+
+# --- Reference genome (download with NCBI datasets) ---
+reference/
+
+# --- Assembly ---
+# spades is a link to the external drive; the filtered assembly is
+# reproducible from the reads, so neither is committed
+04_assembly/
+
+# --- Evaluation: keep the QUAST summary tables only ---
+05_evaluation/*
+!05_evaluation/quast/
+05_evaluation/quast/*
+!05_evaluation/quast/report.txt
+!05_evaluation/quast/report.tsv
+
+# --- Repeats (a link to the external drive) ---
+06_repeats
+
+# --- Annotation: keep gene models, proteins and the DIAMOND comparison ---
+07_annotation/*
+!07_annotation/augustus.gff3
+!07_annotation/augustus_proteins.faa
+!07_annotation/augustus_vs_ref_cov50.tsv
+
+# --- antiSMASH: keep the region summary table only ---
+08_antismash/*
+!08_antismash/antismash_regions.tsv
+
+# --- Other large or regenerable files, wherever they appear ---
+*.zip
+*.gz
+*.dmnd
+*.fai
+*.h5
+*.bam
+*.sam
+busco_downloads/
+notebook.md
