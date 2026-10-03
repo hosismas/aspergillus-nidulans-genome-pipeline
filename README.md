@@ -334,6 +334,8 @@ Some of the known *A. nidulans* clusters came out clearly:
 
 The sterigmatocystin and penicillin results were a useful lesson: a "Low" similarity score can mean a fragmented cluster or simply a broadly defined reference entry, and only the gene-by-gene view tells you which.
 
+A plot of cluster types by scaffold-edge status is in [scripts/bgc_types.md](scripts/bgc_types.md) (R Markdown, ggplot2). PKS and NRPS regions are the most affected: 9 of 17 T1PKS and 4 of 7 NRPS regions sit on a scaffold edge, probably because their long core genes are more likely to cross a break in the assembly.
+
 ## Methods summary
 
 Illumina HiSeq 2500 paired-end reads (2 x 101 bp; SRA SRR4236261) from *Aspergillus nidulans* FGSC A4 were quality-checked with FastQC and MultiQC and trimmed with fastp v1.3.6 (TruSeq adapter removal, first base of read 1 removed, 3′ trimming at a 4-base window mean of Q20, minimum length 50 bp), retaining 12,254,337 read pairs. Reads were assembled with SPAdes v4.3.0 in isolate mode, and scaffolds shorter than 500 bp were removed. Assembly quality was assessed with QUAST v5.3.0 against the reference genome ASM1142v1 (GCF_000011425.1) and with BUSCO v6.1.0 (eurotiales_odb12), using the reference genome as a control.
@@ -389,6 +391,6 @@ What I'd tell myself at the start: check disk space before every long run, test 
 
 - [ ] Add FastQC, MultiQC and NCBI datasets versions
 - [ ] BLAST the unaligned scaffolds
-- [ ] Plot the antiSMASH region table in R
+- [x] Plot the antiSMASH region table in R ([scripts/bgc_types.md](scripts/bgc_types.md))
 - [ ] Functional annotation of the predicted proteins (eggNOG-mapper or InterProScan)
 - [ ] Apply the pipeline to my marine isolates, with Funannotate on an HPC system and long reads where possible
