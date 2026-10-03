@@ -18,6 +18,7 @@ I put this pipeline together to learn fungal genome assembly and annotation end 
 
 ## Data
 
+- **Strain:** FGSC A4, the Glasgow wild-type strain used in Pontecorvo's classic genetics work and the source of the reference genome. It is originally a soil isolate ([Bastos et al. 2020, mSphere](https://journals.asm.org/doi/10.1128/msphere.00153-20)) and is held in culture collections under several equivalent numbers, including NRRL 194, CBS 112.46 and ATCC 38163 ([ATCC](https://www.atcc.org/products/38163)). The reads below come from a laboratory line of this strain, not from a new environmental isolate.
 - **Reads:** SRA run [SRR4236261](https://www.ebi.ac.uk/ena/browser/view/SRR4236261) (BioProject PRJNA335082), Illumina HiSeq 2500, 2 x 101 bp, 13.5 million pairs (2.73 Gb, roughly 91x for a 30 Mb genome). This is JGI resequencing of an FGSC A4 line, so a few real differences from the reference are possible.
 - **Reference:** RefSeq assembly GCF_000011425.1 (ASM1142v1), with its GFF3 annotation and proteins. I only used it to evaluate my results. The assembler never saw it.
 
