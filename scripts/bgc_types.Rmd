@@ -1,0 +1,74 @@
+---
+title: "BGC types in the A. nidulans assembly"
+author: "Hosea"
+date: "2026-10-03"
+output: github_document
+---
+
+Cluster types from fungiSMASH (antiSMASH 8.0.4), split by whether each region
+sits on a scaffold edge.
+
+## Packages
+
+```{r packages, message = FALSE}
+library(ggplot2)
+```
+
+## Load the data
+
+```{r load-data}
+data_file <- "../08_antismash/antismash_regions.tsv"
+file.exists(data_file)
+
+regions <- read.delim(data_file, colClasses = c(label = "character"))
+```
+
+## Inspecting the data
+
+```{r inspect}
+str(regions)
+```
+
+## Tidy the data
+
+```{r tidy}
+regions$contig_edge <- as.logical(regions$contig_edge)
+
+regions$type <- ifelse(grepl("+", regions$products, fixed = TRUE),
+                       "Hybrid", regions$products)
+
+regions$edge <- ifelse(regions$contig_edge, "On scaffold edge", "Not on edge")
+
+type_order <- names(sort(table(regions$type)))
+regions$type <- factor(regions$type, levels = type_order)
+
+table(regions$type, regions$edge)
+```
+
+## Plot
+
+```{r plot, fig.width = 7, fig.height = 4.5}
+ggplot(regions, aes(x = type, fill = edge)) +
+  geom_bar() +
+  coord_flip() +
+  scale_fill_manual(values = c("Not on edge" = "grey65",
+                               "On scaffold edge" = "#D95F02")) +
+  labs(x = NULL, y = "Number of regions", fill = NULL,
+       title = "BGC regions by type",
+       subtitle = "fungiSMASH, A. nidulans short-read assembly (66 regions)") +
+  theme_minimal(base_size = 12) +
+  theme(legend.position = "bottom")
+```
+
+## Interpretation
+
+PKS and NRPS regions were the most affected by assembly fragmentation:
+9 of 17 T1PKS and 4 of 7 NRPS regions sit on a scaffold edge. Their core
+genes are long, so these clusters are more likely to cross a break in a
+short-read assembly.
+
+
+
+
+
+
